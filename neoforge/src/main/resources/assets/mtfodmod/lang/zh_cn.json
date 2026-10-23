@@ -1,0 +1,32 @@
+{
+	"item.mtfodmod.pregabalin_capsule": "普瑞巴林胶囊",
+	"item.mtfodmod.pregabalin_capsule.lore1": "镇静、眩晕、共济失调——大剂量滥用可致严重嗜睡甚至昏迷。",
+	"item.mtfodmod.pregabalin_capsule.lore2": "长期滥用导致依赖，停药会出现戒断反应。",
+
+	"item.mtfodmod.dextromethorphan": "右美沙芬",
+	"item.mtfodmod.dextromethorphan.lore1": "高剂量产生解离与幻觉，可引发血清素综合征。",
+	"item.mtfodmod.dextromethorphan.lore2": "滥用损害认知，大剂量可致精神病与心律失常。",
+
+	"item.mtfodmod.amantadine": "盐酸金刚烷胺",
+	"item.mtfodmod.amantadine.lore1": "高剂量产生兴奋与幻觉，可致精神病或癫痫发作。",
+	"item.mtfodmod.amantadine.lore2": "过量可致心律失常甚至心脏骤停。",
+
+	"item.mtfodmod.gabapentin_capsule": "加巴喷丁胶囊",
+	"item.mtfodmod.gabapentin_capsule.lore1": "镇静、眩晕、共济失调；与阿片类合用会增强呼吸抑制。",
+	"item.mtfodmod.gabapentin_capsule.lore2": "滥用可致依赖，戒断会出现焦虑、失眠等症状。",
+
+	"item.mtfodmod.estradiol_valerate": "戊酸雌二醇片",
+	"item.mtfodmod.estradiol_valerate.lore1": "雌激素类药物，用于激素替代治疗（HRT）。",
+	"item.mtfodmod.estradiol_valerate.lore2": "请遵医嘱使用，切勿自行滥用。",
+
+	"item.mtfodmod.yumei_tablet": "愈美片（右美沙芬+愈创木酚甘油醚）",
+	"item.mtfodmod.yumei_tablet.lore1": "含右美沙芬的止咳药；高剂量滥用会产生解离与幻觉。",
+	"item.mtfodmod.yumei_tablet.lore2": "滥用可致血清素综合征、精神病与心律失常。",
+
+	"item.mtfodmod.androcur_50mg": "色谱龙 50mg（醋酸环丙孕酮）",
+	"item.mtfodmod.androcur_50mg.lore1": "抗雄激素药物，用于 MtF 激素治疗（HRT）。",
+	"item.mtfodmod.androcur_50mg.lore2": "请遵医嘱使用，切勿自行滥用。",
+
+	"advancement.mtfodmod.first_od.title": "第一次 OD",
+	"advancement.mtfodmod.first_od.description": "第一次服用被滥用的药物。记住：过量(OD)可能夺走你的生命。"
+}
