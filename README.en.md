@@ -16,7 +16,7 @@
 
 <p align="center"><i>Cherish life, stay away from drugs. For public education only; not medical advice.</i></p>
 
-<p align="center">[中文](README.md) | English</p>
+<p align="center"><a href="README.md">中文</a> | <a href="README.en.md">English</a></p>
 
 ---
 
