@@ -5,11 +5,14 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.world.item.CreativeModeTabs;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
+import com.mtfodmod.client.MtFodModClient;
 import com.mtfodmod.item.ModItems;
 
 @Mod(MtFodMod.MOD_ID)
@@ -20,6 +23,9 @@ public class MtFodMod {
     public MtFodMod(IEventBus modEventBus, ModContainer modContainer) {
         ModItems.ITEMS.register(modEventBus);
         modEventBus.addListener(this::addCreative);
+        if (FMLEnvironment.getDist() == Dist.CLIENT) {
+            modEventBus.addListener(MtFodModClient::register);
+        }
         LOGGER.info("[MtFOD] Loaded. 珍爱生命，远离药物滥用。");
     }
 

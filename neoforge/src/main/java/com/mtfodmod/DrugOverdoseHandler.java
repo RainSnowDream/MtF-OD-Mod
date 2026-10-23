@@ -6,9 +6,7 @@ import java.util.UUID;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.BossEvent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -17,6 +15,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /**
  * 药物负荷 / 过量(OD) / 戒断系统（NeoForge 版）。
+ * 负荷实时显示由客户端底部 HUD 负责。
  */
 @EventBusSubscriber(modid = MtFodMod.MOD_ID)
 public final class DrugOverdoseHandler {
@@ -25,7 +24,6 @@ public final class DrugOverdoseHandler {
     private static final int WITHDRAWAL_THRESHOLD = 200;
 
     private static final Map<UUID, State> STATES = new HashMap<>();
-    private static final Map<UUID, ServerBossEvent> BARS = new HashMap<>();
     private static int tickCounter = 0;
 
     private DrugOverdoseHandler() {
@@ -55,8 +53,6 @@ public final class DrugOverdoseHandler {
                 state.load = Math.max(0, state.load - 1);
             }
 
-            updateBar(player, state.load);
-
             if (state.load >= OD_THRESHOLD) {
                 state.load = 0;
                 player.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 12, 2));
@@ -77,34 +73,6 @@ public final class DrugOverdoseHandler {
                 STATES.remove(id);
             }
         }
-    }
-
-    private static void updateBar(ServerPlayer player, int load) {
-        UUID id = player.getUUID();
-        if (load <= 0) {
-            ServerBossEvent existing = BARS.remove(id);
-            if (existing != null) {
-                existing.removePlayer(player);
-            }
-            return;
-        }
-
-        ServerBossEvent bar = BARS.computeIfAbsent(id, key -> {
-            ServerBossEvent created = new ServerBossEvent(
-                    UUID.randomUUID(),
-                    Component.literal("药物负荷"),
-                    BossEvent.BossBarColor.GREEN,
-                    BossEvent.BossBarOverlay.PROGRESS);
-            created.addPlayer(player);
-            return created;
-        });
-
-        float ratio = Math.min(1.0F, (float) load / OD_THRESHOLD);
-        bar.setProgress(ratio);
-        bar.setColor(ratio >= 0.8F ? BossEvent.BossBarColor.RED
-                : ratio >= 0.5F ? BossEvent.BossBarColor.YELLOW
-                : BossEvent.BossBarColor.GREEN);
-        bar.setName(Component.literal("药物负荷 " + (int) (ratio * 100) + "%"));
     }
 
     private static boolean isOnDrugs(ServerPlayer player) {
