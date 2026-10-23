@@ -1,0 +1,55 @@
+name: 错误报告
+description: 报告一个 bug（崩溃、显示异常、效果不对等）
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请尽量填写完整信息，方便定位问题。
+  - type: input
+    id: mc-version
+    attributes:
+      label: Minecraft 版本
+      placeholder: "例如 26.3"
+    validations:
+      required: true
+  - type: dropdown
+    id: loader
+    attributes:
+      label: 加载器
+      options:
+        - Fabric
+        - NeoForge
+        - Forge
+    validations:
+      required: true
+  - type: input
+    id: mod-version
+    attributes:
+      label: 模组版本
+      placeholder: "例如 0.1.0-beta+fabric+26.3"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 问题描述
+      description: 发生了什么？你期望是什么？
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志 / 崩溃报告
+      description: 粘贴 latest.log 或 crash-report 的相关部分
+      render: text
