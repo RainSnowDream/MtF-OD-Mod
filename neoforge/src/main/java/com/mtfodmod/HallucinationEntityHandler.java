@@ -14,12 +14,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /**
- * 幻影实体幻觉（NeoForge 版）。
+ * 幻影实体幻觉（NeoForge 版）：正前方生成纯黑末影人「黑影子」。
  */
 @EventBusSubscriber(modid = MtFodMod.MOD_ID)
 public final class HallucinationEntityHandler {
@@ -62,7 +63,7 @@ public final class HallucinationEntityHandler {
         if (!(player.level() instanceof ServerLevel level)) {
             return;
         }
-        EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse("minecraft:zombie"));
+        EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse("minecraft:enderman"));
         if (type == null) {
             return;
         }
@@ -70,10 +71,14 @@ public final class HallucinationEntityHandler {
         if (phantom == null) {
             return;
         }
-        double angle = player.getRandom().nextDouble() * Math.PI * 2.0D;
-        double distance = 6.0D + player.getRandom().nextDouble() * 6.0D;
-        phantom.setPos(player.getX() + Math.cos(angle) * distance, player.getY(),
-                player.getZ() + Math.sin(angle) * distance);
+
+        Vec3 look = player.getLookAngle();
+        double distance = 3.0D + player.getRandom().nextDouble() * 1.5D;
+        double x = player.getX() + look.x * distance;
+        double z = player.getZ() + look.z * distance;
+        double y = player.getY();
+
+        phantom.setPos(x, y, z);
         phantom.setSilent(true);
         phantom.setPermanentlyInvulnerable(true);
         if (phantom instanceof Mob mob) {

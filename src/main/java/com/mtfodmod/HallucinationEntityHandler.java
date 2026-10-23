@@ -16,13 +16,14 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * 幻影实体幻觉。
  *
- * 玩家处于致幻状态（黑暗 + 反胃）时，偶尔在附近生成一个「幻影」：
- * 一个无 AI、静音、无敌的僵尸，站立数秒后消失，造成「看到了不存在的东西」的错觉。
- * （实体类型通过注册表获取，因为 26.3 的 EntityType 不再提供 ZOMBIE 等静态常量。）
+ * 玩家处于致幻状态（黑暗 + 反胃）时，偶尔在正前方 3~4.5 格生成一个「黑影子」：
+ * 一个纯黑、高瘦的末影人，无 AI、静音、无敌，几秒后消失。
+ * （实体类型通过注册表获取，因为 26.3 的 EntityType 不再提供静态常量。）
  */
 public final class HallucinationEntityHandler {
 	private static final Map<Entity, Integer> PHANTOMS = new HashMap<>();
@@ -67,7 +68,7 @@ public final class HallucinationEntityHandler {
 		if (!(player.level() instanceof ServerLevel level)) {
 			return;
 		}
-		EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse("minecraft:zombie"));
+		EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse("minecraft:enderman"));
 		if (type == null) {
 			return;
 		}
@@ -75,10 +76,15 @@ public final class HallucinationEntityHandler {
 		if (phantom == null) {
 			return;
 		}
-		double angle = player.getRandom().nextDouble() * Math.PI * 2.0D;
-		double distance = 6.0D + player.getRandom().nextDouble() * 6.0D;
-		phantom.setPos(player.getX() + Math.cos(angle) * distance, player.getY(),
-				player.getZ() + Math.sin(angle) * distance);
+
+		// 生成在玩家正前方 3~4.5 格，近到能看清
+		Vec3 look = player.getLookAngle();
+		double distance = 3.0D + player.getRandom().nextDouble() * 1.5D;
+		double x = player.getX() + look.x * distance;
+		double z = player.getZ() + look.z * distance;
+		double y = player.getY();
+
+		phantom.setPos(x, y, z);
 		phantom.setSilent(true);
 		phantom.setPermanentlyInvulnerable(true);
 		if (phantom instanceof Mob mob) {
