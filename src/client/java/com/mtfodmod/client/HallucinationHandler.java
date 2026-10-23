@@ -4,23 +4,21 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 
 /**
  * 客户端「幻听」。
  *
- * 仅对致幻类药品生效：只有右美沙芬 / 愈美片 / 盐酸金刚烷胺会同时施加
- * DARKNESS（致幻标记）与 NAUSEA；普瑞巴林、加巴喷丁等镇静类虽然也有 NAUSEA，
- * 但不带 DARKNESS，因此不会触发。
- *
- * 声音使用原版恐怖的洞穴环境音（ambient.cave），以较高音量、较短间隔、
- * 近身随机方位播放，营造"附近有东西"的幻听感。
- * 纯客户端，不改变服务端世界。
+ * 仅对致幻类药品生效（同时有 DARKNESS + NAUSEA）。
+ * 普通致幻：2~6 秒一次的洞穴环境音；
+ * 金刚烷胺（黑暗 II，最高强度）：1.25~3.5 秒一次、音量更大，更接近恐怖游戏。
  */
 public final class HallucinationHandler {
-	// 间隔：2~6 秒
-	private static final int MIN_INTERVAL_TICKS = 40;
-	private static final int MAX_INTERVAL_TICKS = 120;
+	private static final int MIN_INTERVAL_TICKS = 40; // 2 秒
+	private static final int MAX_INTERVAL_TICKS = 120; // 6 秒
+	private static final int INTENSE_MIN_INTERVAL_TICKS = 25; // 1.25 秒
+	private static final int INTENSE_MAX_INTERVAL_TICKS = 70; // 3.5 秒
 
 	private static int tickCounter = 0;
 	private static int nextInterval = MIN_INTERVAL_TICKS;
@@ -40,18 +38,28 @@ public final class HallucinationHandler {
 				nextInterval = MIN_INTERVAL_TICKS;
 				return;
 			}
+
+			boolean intense = isIntense(client.player.getEffect(MobEffects.DARKNESS));
+			int min = intense ? INTENSE_MIN_INTERVAL_TICKS : MIN_INTERVAL_TICKS;
+			int max = intense ? INTENSE_MAX_INTERVAL_TICKS : MAX_INTERVAL_TICKS;
+			float volume = intense ? 2.5F : 2.0F;
+
 			if (++tickCounter < nextInterval) {
 				return;
 			}
 			tickCounter = 0;
-			nextInterval = MIN_INTERVAL_TICKS
-					+ client.player.getRandom().nextInt(MAX_INTERVAL_TICKS - MIN_INTERVAL_TICKS + 1);
-			// 近身 6 格内随机方位，避免距离衰减导致音量过小
+			nextInterval = min + client.player.getRandom().nextInt(max - min + 1);
+
+			// 近身 12 格内随机方位
 			double x = client.player.getX() + (client.player.getRandom().nextDouble() - 0.5D) * 12.0D;
 			double y = client.player.getY() + 1.0D;
 			double z = client.player.getZ() + (client.player.getRandom().nextDouble() - 0.5D) * 12.0D;
-			client.level.playLocalSound(x, y, z, SoundEvents.AMBIENT_CAVE.value(), SoundSource.MASTER, 2.0F,
+			client.level.playLocalSound(x, y, z, SoundEvents.AMBIENT_CAVE.value(), SoundSource.MASTER, volume,
 					0.9F + client.player.getRandom().nextFloat() * 0.2F, false);
 		});
+	}
+
+	private static boolean isIntense(MobEffectInstance darkness) {
+		return darkness != null && darkness.getAmplifier() >= 1;
 	}
 }

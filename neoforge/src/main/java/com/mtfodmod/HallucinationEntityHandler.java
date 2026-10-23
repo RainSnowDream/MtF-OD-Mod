@@ -9,6 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -20,7 +21,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /**
- * 幻影实体幻觉（NeoForge 版）：正前方生成纯黑末影人「黑影子」。
+ * 幻影实体幻觉（NeoForge 版）：普通致幻为末影人，金刚烷胺（黑暗 II）为监守者。
  */
 @EventBusSubscriber(modid = MtFodMod.MOD_ID)
 public final class HallucinationEntityHandler {
@@ -52,18 +53,24 @@ public final class HallucinationEntityHandler {
             return;
         }
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            if (!isHallucinating(player) || player.getRandom().nextInt(3) != 0) {
+            if (!isHallucinating(player)) {
                 continue;
             }
-            spawnPhantom(player);
+            boolean intense = isIntense(player);
+            int chance = intense ? 2 : 3;
+            if (player.getRandom().nextInt(chance) != 0) {
+                continue;
+            }
+            spawnPhantom(player, intense);
         }
     }
 
-    private static void spawnPhantom(ServerPlayer player) {
+    private static void spawnPhantom(ServerPlayer player, boolean intense) {
         if (!(player.level() instanceof ServerLevel level)) {
             return;
         }
-        EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse("minecraft:enderman"));
+        String entityId = intense ? "minecraft:warden" : "minecraft:enderman";
+        EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse(entityId));
         if (type == null) {
             return;
         }
@@ -86,10 +93,15 @@ public final class HallucinationEntityHandler {
             mob.setPersistenceRequired();
         }
         level.addFreshEntity(phantom);
-        PHANTOMS.put(phantom, 80);
+        PHANTOMS.put(phantom, intense ? 60 : 80);
     }
 
     private static boolean isHallucinating(ServerPlayer player) {
         return player.hasEffect(MobEffects.DARKNESS) && player.hasEffect(MobEffects.NAUSEA);
+    }
+
+    private static boolean isIntense(ServerPlayer player) {
+        MobEffectInstance darkness = player.getEffect(MobEffects.DARKNESS);
+        return darkness != null && darkness.getAmplifier() >= 1;
     }
 }

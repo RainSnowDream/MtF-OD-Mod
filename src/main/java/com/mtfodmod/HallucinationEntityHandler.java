@@ -11,6 +11,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -21,9 +22,10 @@ import net.minecraft.world.phys.Vec3;
 /**
  * 幻影实体幻觉。
  *
- * 玩家处于致幻状态（黑暗 + 反胃）时，偶尔在正前方 3~4.5 格生成一个「黑影子」：
- * 一个纯黑、高瘦的末影人，无 AI、静音、无敌，几秒后消失。
- * （实体类型通过注册表获取，因为 26.3 的 EntityType 不再提供静态常量。）
+ * 致幻状态下在玩家正前方 3~4.5 格生成「黑影子」：
+ * - 普通致幻（黑暗 I）：末影人，较温和；
+ * - 金刚烷胺（黑暗 II，最高强度）：监守者（Warden），更黑、更大、更吓人，出现更频繁。
+ * 均为无 AI、静音、无敌，几秒后消失。
  */
 public final class HallucinationEntityHandler {
 	private static final Map<Entity, Integer> PHANTOMS = new HashMap<>();
@@ -57,18 +59,24 @@ public final class HallucinationEntityHandler {
 			return;
 		}
 		for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-			if (!isHallucinating(player) || player.getRandom().nextInt(3) != 0) {
+			if (!isHallucinating(player)) {
 				continue;
 			}
-			spawnPhantom(player);
+			boolean intense = isIntense(player);
+			int chance = intense ? 2 : 3; // 金刚烷胺 1/2，其余 1/3
+			if (player.getRandom().nextInt(chance) != 0) {
+				continue;
+			}
+			spawnPhantom(player, intense);
 		}
 	}
 
-	private static void spawnPhantom(ServerPlayer player) {
+	private static void spawnPhantom(ServerPlayer player, boolean intense) {
 		if (!(player.level() instanceof ServerLevel level)) {
 			return;
 		}
-		EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse("minecraft:enderman"));
+		String entityId = intense ? "minecraft:warden" : "minecraft:enderman";
+		EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse(entityId));
 		if (type == null) {
 			return;
 		}
@@ -92,10 +100,17 @@ public final class HallucinationEntityHandler {
 			mob.setPersistenceRequired();
 		}
 		level.addFreshEntity(phantom);
-		PHANTOMS.put(phantom, 80); // 约 4 秒
+		PHANTOMS.put(phantom, intense ? 60 : 80);
 	}
 
+	/** 是否处于致幻状态（黑暗 + 反胃）。 */
 	private static boolean isHallucinating(ServerPlayer player) {
 		return player.hasEffect(MobEffects.DARKNESS) && player.hasEffect(MobEffects.NAUSEA);
+	}
+
+	/** 金刚烷胺的黑暗为 II 级，作为「最高强度幻觉」标记。 */
+	private static boolean isIntense(ServerPlayer player) {
+		MobEffectInstance darkness = player.getEffect(MobEffects.DARKNESS);
+		return darkness != null && darkness.getAmplifier() >= 1;
 	}
 }
