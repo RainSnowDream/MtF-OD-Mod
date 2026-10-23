@@ -111,7 +111,7 @@ cd neoforge
 
 ---
 
-<h2 id="english">English</h2>
+## English
 
 <br>
 
