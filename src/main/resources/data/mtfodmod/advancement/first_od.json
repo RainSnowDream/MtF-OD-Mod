@@ -1,0 +1,34 @@
+{
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "icon": {
+      "id": "mtfodmod:dextromethorphan"
+    },
+    "title": {
+      "translate": "advancement.mtfodmod.first_od.title"
+    },
+    "description": {
+      "translate": "advancement.mtfodmod.first_od.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "consume_drug": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "mtfodmod:pregabalin_capsule",
+            "mtfodmod:dextromethorphan",
+            "mtfodmod:amantadine",
+            "mtfodmod:gabapentin_capsule",
+            "mtfodmod:yumei_tablet"
+          ]
+        }
+      }
+    }
+  }
+}

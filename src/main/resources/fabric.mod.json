@@ -1,0 +1,27 @@
+{
+	"schemaVersion": 1,
+	"id": "mtfodmod",
+	"version": "${version}",
+	"name": "MtFOD Mod",
+	"description": "A mod to warn people about the harm of drug abuse and overdose (OD). 一个警示药物滥用与过量(OD)危害的模组。",
+	"authors": [
+		"PRYM"
+	],
+	"license": "CC0-1.0",
+	"icon": "assets/mtfodmod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.mtfodmod.MtFodMod"
+		],
+		"client": [
+			"com.mtfodmod.client.MtFodModClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

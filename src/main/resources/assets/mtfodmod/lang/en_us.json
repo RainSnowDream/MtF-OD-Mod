@@ -1,0 +1,32 @@
+{
+	"item.mtfodmod.pregabalin_capsule": "Pregabalin Capsule",
+	"item.mtfodmod.pregabalin_capsule.lore1": "Sedation, dizziness, ataxia — high-dose abuse causes severe drowsiness or coma.",
+	"item.mtfodmod.pregabalin_capsule.lore2": "Long-term abuse leads to dependence and withdrawal symptoms.",
+
+	"item.mtfodmod.dextromethorphan": "Dextromethorphan",
+	"item.mtfodmod.dextromethorphan.lore1": "High doses cause dissociation and hallucinations; may trigger serotonin syndrome.",
+	"item.mtfodmod.dextromethorphan.lore2": "Abuse impairs cognition; large doses risk psychosis and arrhythmia.",
+
+	"item.mtfodmod.amantadine": "Amantadine Hydrochloride",
+	"item.mtfodmod.amantadine.lore1": "High doses cause stimulation and hallucinations; may lead to psychosis or seizures.",
+	"item.mtfodmod.amantadine.lore2": "Overdose can cause arrhythmia or cardiac arrest.",
+
+	"item.mtfodmod.gabapentin_capsule": "Gabapentin Capsule",
+	"item.mtfodmod.gabapentin_capsule.lore1": "Sedation, dizziness, ataxia; potentiates respiratory depression with opioids.",
+	"item.mtfodmod.gabapentin_capsule.lore2": "Abuse causes dependence; withdrawal includes anxiety and insomnia.",
+
+	"item.mtfodmod.estradiol_valerate": "Estradiol Valerate Tablets",
+	"item.mtfodmod.estradiol_valerate.lore1": "An estrogen medication used in hormone replacement therapy (HRT).",
+	"item.mtfodmod.estradiol_valerate.lore2": "Take it as prescribed; do not self-medicate or abuse it.",
+
+	"item.mtfodmod.yumei_tablet": "Yumei Tablet (DXM + Guaifenesin)",
+	"item.mtfodmod.yumei_tablet.lore1": "A cough medicine containing dextromethorphan; high-dose abuse causes dissociation and hallucinations.",
+	"item.mtfodmod.yumei_tablet.lore2": "Abuse can trigger serotonin syndrome, psychosis and arrhythmia.",
+
+	"item.mtfodmod.androcur_50mg": "Androcur 50mg (Cyproterone Acetate)",
+	"item.mtfodmod.androcur_50mg.lore1": "An anti-androgen used in MtF hormone therapy (HRT).",
+	"item.mtfodmod.androcur_50mg.lore2": "Take it as prescribed; do not self-medicate or abuse it.",
+
+	"advancement.mtfodmod.first_od.title": "First OD",
+	"advancement.mtfodmod.first_od.description": "Took an abused drug for the first time. Remember: overdose (OD) can cost your life."
+}
