@@ -16,9 +16,11 @@
 
 <p align="center"><i>珍爱生命，远离毒品。内容仅供公益 / 教育用途，不构成用药指导。</i></p>
 
-<p align="center">中文（本页） · <a href="#english">English ↓</a></p>
+<p align="center"><a href="#中文">中文</a> | <a href="#english">English</a></p>
 
 ---
+
+## 中文
 
 ## 📥 下载
 
