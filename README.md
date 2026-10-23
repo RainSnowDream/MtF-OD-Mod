@@ -12,6 +12,8 @@
   <a href="https://github.com/RainSnowDream/MtF-OD-Mod/releases"><img src="https://img.shields.io/github/v/release/RainSnowDream/MtF-OD-Mod?style=for-the-badge&label=Release&color=c62828" alt="Release"></a>
 </p>
 
+<p align="center">[中文](README.md) | [English](README.en.md)</p>
+
 <h2 align="center">警示药物滥用与过量（OD）危害的 Minecraft Fabric / NeoForge 模组</h2>
 
 <p align="center"><i>珍爱生命，远离毒品。内容仅供公益 / 教育用途，不构成用药指导。</i></p>
