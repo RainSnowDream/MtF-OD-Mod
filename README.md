@@ -5,16 +5,27 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Minecraft-26.3-3fb950?style=for-the-badge" alt="Minecraft">
   <img src="https://img.shields.io/badge/Fabric-0.19.5-db9b45?style=for-the-badge" alt="Fabric">
+  <img src="https://img.shields.io/badge/NeoForge-26.3.0.95-db9b45?style=for-the-badge" alt="NeoForge">
   <img src="https://img.shields.io/badge/Version-0.1.0--beta-c62828?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/Java-25-e76f00?style=for-the-badge" alt="Java">
   <img src="https://img.shields.io/badge/License-CC0--1.0-lightgrey?style=for-the-badge" alt="License">
+  <a href="https://github.com/RainSnowDream/MtF-OD-Mod/releases"><img src="https://img.shields.io/github/v/release/RainSnowDream/MtF-OD-Mod?style=for-the-badge&label=Release&color=c62828" alt="Release"></a>
 </p>
 
-<h2 align="center">警示药物滥用与过量（OD）危害的 Minecraft Fabric 模组</h2>
+<h2 align="center">警示药物滥用与过量（OD）危害的 Minecraft Fabric / NeoForge 模组</h2>
 
 <p align="center"><i>珍爱生命，远离毒品。内容仅供公益 / 教育用途，不构成用药指导。</i></p>
 
 ---
+
+## 📥 下载
+
+前往 **[Releases](https://github.com/RainSnowDream/MtF-OD-Mod/releases)** 下载对应加载器的 `.jar`：
+
+| 加载器 | 文件 |
+| --- | --- |
+| Fabric | `mtfodmod-<版本>+fabric+26.3.jar` |
+| NeoForge | `mtfodmod-<版本>+neoforge+26.3.jar` |
 
 ## 📖 简介
 
@@ -47,31 +58,50 @@
 
 ## 📥 安装
 
+### Fabric
+
 1. 安装 **Fabric Loader 0.19.5**（针对 Minecraft **26.3**）。
 2. 将 [Fabric API](https://modrinth.com/mod/fabric-api) 放入 `mods/`。
-3. 下载本模组 `.jar` 放入 `mods/`。
+3. 下载本模组的 Fabric `.jar` 放入 `mods/`。
 4. 启动游戏。
+
+### NeoForge
+
+1. 安装 **NeoForge 26.3.0.95**（针对 Minecraft **26.3**）。
+2. 下载本模组的 NeoForge `.jar` 放入 `mods/`。
+3. 启动游戏。
 
 ## 🔧 构建
 
 需要 **JDK 25**。
 
 ```bash
-gradlew.bat build        # Windows
+# Fabric（根目录）
 ./gradlew build          # macOS / Linux
+gradlew.bat build        # Windows
+
+# NeoForge（neoforge/ 目录）
+cd neoforge
+./gradlew build
 ```
 
-产物：`build/libs/mtfodmod-0.1.0-beta+fabric+26.3.jar`
+产物：
+- Fabric：`build/libs/mtfodmod-0.1.0-beta+fabric+26.3.jar`
+- NeoForge：`neoforge/build/libs/mtfodmod-0.1.0-beta+neoforge+26.3.jar`
 
 ## 🧩 环境
 
-| 项目 | 值 |
-| --- | --- |
-| 模组版本 | `0.1.0-beta+fabric+26.3` |
-| Minecraft | **26.3** |
-| Fabric Loader | **0.19.5** |
-| Fabric API | **0.163.0+26.3** |
-| Java | **25** |
+| 项目 | Fabric | NeoForge |
+| --- | --- | --- |
+| 模组版本 | `0.1.0-beta+fabric+26.3` | `0.1.0-beta+neoforge+26.3` |
+| Minecraft | 26.3 | 26.3 |
+| 加载器 | Fabric Loader 0.19.5 | NeoForge 26.3.0.95 |
+| 依赖 | Fabric API 0.163.0+26.3 | — |
+| Java | 25 | 25 |
+
+## 🤝 参与
+
+欢迎提交 [Issue](https://github.com/RainSnowDream/MtF-OD-Mod/issues/new/choose) 或 PR，详见 [贡献指南](CONTRIBUTING.md)。
 
 ## 📜 许可
 
