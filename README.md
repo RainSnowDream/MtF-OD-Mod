@@ -16,7 +16,7 @@
 
 <p align="center"><i>珍爱生命，远离毒品。内容仅供公益 / 教育用途，不构成用药指导。</i></p>
 
-<p align="center">中文（本页） · <b>English</b>（滚动到文末展开）</p>
+<p align="center">中文（本页） · <a href="#english">English ↓</a></p>
 
 ---
 
@@ -111,10 +111,7 @@ cd neoforge
 
 ---
 
-<br>
-
-<details>
-<summary><b>🇬🇧 English version（点击展开 / click to expand）</b></summary>
+<h2 id="english">English</h2>
 
 <br>
 
@@ -206,5 +203,3 @@ Feel free to open an [Issue](https://github.com/RainSnowDream/MtF-OD-Mod/issues/
 ## 📜 License
 
 Released under **CC0-1.0**.
-
-</details>
