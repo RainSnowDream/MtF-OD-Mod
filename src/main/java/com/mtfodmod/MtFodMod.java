@@ -17,6 +17,7 @@ public class MtFodMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModItems.initialize();
+		DrugOverdoseHandler.register();
 
 		LOGGER.info("[MtFOD] Loaded. 珍爱生命，远离药物滥用。");
 	}
